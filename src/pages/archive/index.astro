@@ -1,0 +1,39 @@
+---
+import Layout from "@/layouts/Layout.astro"
+import { getCollection } from "astro:content";
+
+const posts = await getCollection('blog');
+const postsGroup = Object.groupBy(posts, ({ data }) => {
+    const { date } = data;
+    return date.split("/")[0];
+  });
+
+  // const yearArray: string[] = sortBy(Object.keys(postsGroup), (year: string) =>
+  //   Number(year)
+  // ).reverse();
+  const yearArray: string[] = Object.keys(postsGroup).sort((a, b) => Number(b) - Number(a));
+---
+
+<Layout>
+  {yearArray.map((year) => {
+    return (
+      <div class="pb-6">
+        <h2 class="tracking-wider text-3xl font-semibold">#{year}</h2>
+        {postsGroup[year].map((post, index) => {
+          return (
+            <a
+              href={`/posts/${post.id}`}
+              class=" py-3 flex flex-col-reverse md:flex-row"
+            >
+              <time class="mr-4 opacity-50">
+                {post.data.date}
+              </time>
+              <h1>{post.data.title}</h1>
+            </a>
+          );
+        })}
+      </div>
+    );
+  })}
+  
+</Layout>

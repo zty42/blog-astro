@@ -3,9 +3,9 @@ import Layout from '../layouts/Layout.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 
 import { getCollection } from 'astro:content';
-
+import { getTime } from "date-fns";
 const posts = (await getCollection('blog')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+	(a, b) => getTime(b.data.date) - getTime(a.data.date),
 );
 ---
 
@@ -14,8 +14,8 @@ const posts = (await getCollection('blog')).sort(
 	<ul>
 		{posts.map((post) => (
 			<li>
-				<a href={`/posts/${post.id}/`} class="flex items-center gap-2 flex flex-col items-start md:flex-row md:items-center md:gap-4 py-3">
-					<FormattedDate date={post.data.pubDate} />
+				<a href={`/posts/${post.id}/`} class="flex gap-2 flex-col-reverse items-start md:flex-row md:items-center md:gap-4 py-3">
+					<FormattedDate date={post.data.date} />
 					<h2>{post.data.title}</h2>
 				</a>
 			</li>

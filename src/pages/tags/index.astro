@@ -1,0 +1,20 @@
+---
+import Layout from '@/layouts/Layout.astro';
+
+import { getCollection } from 'astro:content';
+
+const tags = (await getCollection('blog')).map(post => post.data.tags).flat().filter(Boolean)
+---
+
+<Layout>
+  <h1 class="text-3xl font-bold mb-4">Tags</h1>
+  <ul class="pl-5">
+    {tags.map(tag => (
+      <li class="m-4 inline-block">
+        <a href={`/tags/${tag}`} class=" hover:underline">{tag}</a>
+      </li>
+    ))}
+  </ul>
+  
+  
+</Layout>
