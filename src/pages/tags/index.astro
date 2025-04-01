@@ -1,20 +1,42 @@
 ---
-import Layout from '@/layouts/Layout.astro';
+import Layout from "@/layouts/Layout.astro";
 
-import { getCollection } from 'astro:content';
+import { getCollection } from "astro:content";
 
-const tags = (await getCollection('blog')).map(post => post.data.tags).flat().filter(Boolean)
+const tags = (await getCollection("blog"))
+  .map((post) => post.data.tags)
+  .flat()
+  .filter((tag): tag is string => Boolean(tag))
+  .reduce<Record<string, number>>((res, name) => {
+    res[name] = res[name] ? ++res[name] : 1;
+    return res;
+  }, {});
+
+const tagList = Object.keys(tags).sort((a, b) => {
+  const aCount = tags[a];
+  const bCount = tags[b];
+
+  if (aCount === bCount) {
+    return a.localeCompare(b);
+  }
+
+  return bCount - aCount;
+});
 ---
 
-<Layout>
-  <h1 class="text-3xl font-bold mb-4">Tags</h1>
-  <ul class="pl-5">
-    {tags.map(tag => (
-      <li class="m-4 inline-block">
-        <a href={`/tags/${tag}`} class=" hover:underline">{tag}</a>
-      </li>
-    ))}
-  </ul>
-  
-  
+<Layout title="Tags" description="All tags">
+  <section class="mt-8">
+    <h2 class="text-3xl font-bold mb-6">Tags</h2>
+    <ul>
+      {
+        tagList.map((tag) => (
+          <li class="mx-4 my-2 inline-block">
+            <a href={`/tags/${tag}`} class=" hover:underline">
+              #{tag}({tags[tag]})
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
 </Layout>

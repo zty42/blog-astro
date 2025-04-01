@@ -10,7 +10,7 @@ type Props = CollectionEntry<"blog">["data"];
 const { title, date } = Astro.props;
 ---
 
-<main>
+<main class="mt-8">
 	<article>
 		<div>
 			<div class="title">
@@ -23,4 +23,5 @@ const { title, date } = Astro.props;
 			<slot />
 		</div>
 	</article>
+	<hr>
 </main>

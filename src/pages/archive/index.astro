@@ -1,39 +1,47 @@
 ---
-import Layout from "@/layouts/Layout.astro"
-import { getCollection } from "astro:content";
+import FormattedDate from "@/components/FormattedDate.astro";
+import Layout from "@/layouts/Layout.astro";
+import { getCollection, type CollectionEntry } from "astro:content";
 
-const posts = await getCollection('blog');
+type PostsGroup = Record<string, CollectionEntry<"blog">[]>;
+
+const posts = await getCollection("blog");
 const postsGroup = Object.groupBy(posts, ({ data }) => {
-    const { date } = data;
-    return date.split("/")[0];
-  });
+  const { date } = data;
+  return date.split("/")[0];
+}) as PostsGroup;
 
-  // const yearArray: string[] = sortBy(Object.keys(postsGroup), (year: string) =>
-  //   Number(year)
-  // ).reverse();
-  const yearArray: string[] = Object.keys(postsGroup).sort((a, b) => Number(b) - Number(a));
+const yearArray: string[] = Object.keys(postsGroup).sort(
+  (a, b) => Number(b) - Number(a)
+);
 ---
 
-<Layout>
-  {yearArray.map((year) => {
-    return (
-      <div class="pb-6">
-        <h2 class="tracking-wider text-3xl font-semibold">#{year}</h2>
-        {postsGroup[year].map((post, index) => {
-          return (
-            <a
-              href={`/posts/${post.id}`}
-              class=" py-3 flex flex-col-reverse md:flex-row"
-            >
-              <time class="mr-4 opacity-50">
-                {post.data.date}
-              </time>
-              <h1>{post.data.title}</h1>
-            </a>
-          );
-        })}
-      </div>
-    );
-  })}
-  
+<Layout title="Archive" description="All posts">
+  <section class="mt-8">
+    <h2 class="text-3xl font-bold mb-6">Archive</h2>
+    {
+      yearArray.map((year) => {
+        return (
+          <div class="my-4">
+            <h2 class="text-2xl font-semibold">#{year}</h2>
+            <ul>
+              {postsGroup[year].map((post, index) => {
+                return (
+                  <li>
+                    <a
+                      href={`/posts/${post.id}/`}
+                      class="flex gap-2 flex-col-reverse items-start md:flex-row md:items-center md:gap-4 py-3"
+                    >
+                      <FormattedDate date={post.data.date} />
+                      <h2>{post.data.title}</h2>
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        );
+      })
+    }
+  </section>
 </Layout>

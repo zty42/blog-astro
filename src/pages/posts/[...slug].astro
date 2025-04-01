@@ -15,9 +15,11 @@ type Props = CollectionEntry<'blog'>;
 
 const post = Astro.props;
 const { Content } = await render(post);
+
+console.log(post)
 ---
 
-<Layout>
+<Layout title={post.data.title} description={post.body?.slice(0, 150)}>
 	<BlogPost {...post.data}>
 		<Prose>
 			<Content />

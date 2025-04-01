@@ -7,18 +7,22 @@ import { getTime } from "date-fns";
 const posts = (await getCollection('blog')).sort(
 	(a, b) => getTime(b.data.date) - getTime(a.data.date),
 );
+
+const latestPosts = posts.slice(0, 6);
 ---
 
 <Layout>
-	<h2 class="text-3xl font-bold tracking-tight mb-6">Latest Posts</h2>
-	<ul>
-		{posts.map((post) => (
-			<li>
-				<a href={`/posts/${post.id}/`} class="flex gap-2 flex-col-reverse items-start md:flex-row md:items-center md:gap-4 py-3">
-					<FormattedDate date={post.data.date} />
-					<h2>{post.data.title}</h2>
-				</a>
-			</li>
-		))}
-	</ul>
+	<section class="mt-8">
+		<h2 class="text-3xl font-bold mb-6">Latest Posts</h2>
+		<ul>
+			{latestPosts.map((post) => (
+				<li>
+					<a href={`/posts/${post.id}/`} class="flex gap-2 flex-col-reverse items-start md:flex-row md:items-center md:gap-4 py-3">
+						<FormattedDate date={post.data.date} />
+						<h2>{post.data.title}</h2>
+					</a>
+				</li>
+			))}
+		</ul>
+	</section>
 </Layout>
