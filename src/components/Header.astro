@@ -1,15 +1,16 @@
 ---
-import HeaderLink from "./HeaderLink.astro";
 import { SITE_TITLE } from "../consts";
+import ToggleButton from "./ToggleButton.astro";
 ---
 
 <header class="max-w-3xl">
 	<nav>
-		<h1 class="text-3xl font-bold">
+		<h1 class="text-3xl font-bold flex justify-between">
 			<a href="/" class="flex items-center">
 				<img src="/sunglasses.png" alt="logo" class="w-8 h-8 mr-4 inline-block" />
 				{SITE_TITLE}
 			</a>
+			<ToggleButton />
 		</h1>
 		<div class="flex divide-x my-4 divide-gray-300">
 			<a href="/archive" class="hover:underline pr-4 "> Archive </a>
