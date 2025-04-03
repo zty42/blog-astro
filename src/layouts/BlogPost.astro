@@ -1,15 +1,19 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import BaseHead from "../components/BaseHead.astro";
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 
 type Props = CollectionEntry<"blog">["data"];
 
 const { title, date } = Astro.props;
----
 
+function goBack() {
+    if (document.referrer) {
+      window.history.back(); // 如果有上一页，返回上一页
+    } else {
+      window.location.href = '/'; // 如果没有上一页，跳转到首页
+    }
+  }
+---
 <main class="mt-8">
 	<article>
 		<div>
@@ -24,4 +28,23 @@ const { title, date } = Astro.props;
 		</div>
 	</article>
 	<hr>
+	<div class="my-8">
+		<button data-go-back class="hover:underline flex items-center">
+			cd ..
+		</button>
+	</div>
 </main>
+<script>
+	const buttons = document.querySelectorAll('[data-go-back]');
+	buttons.forEach((button) => {
+	  button.addEventListener('click', goBack);
+	});
+
+  function goBack() {
+    if (document.referrer) {
+      window.history.back(); // 如果有上一页，返回上一页
+    } else {
+      window.location.href = '/'; // 如果没有上一页，跳转到首页
+    }
+  }
+</script>
