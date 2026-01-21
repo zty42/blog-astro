@@ -7,7 +7,7 @@ const { date } = Astro.props;
 import { format} from 'date-fns';
 ---
 
-<time class="text-gray-500 font-mono text-sm md:text-base">
+<time class="text-muted-foreground font-mono text-sm md:text-base">
 	{
 		format(date, 'yyyy/MM/dd')
 	}

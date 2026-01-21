@@ -15,10 +15,10 @@ const currentPath = new URL(Astro.request.url).pathname;
 			</a>
 			<ToggleButton />
 		</h1>
-		<div class="flex divide-x my-4 divide-gray-300">
-			<a href="/archive" class:list={["hover:underline pr-4", { "font-bold underline": currentPath.startsWith("/archive") }]} aria-current={currentPath.startsWith("/archive") ? "page" : undefined}> Archive </a>
-			<a href="/tags" class:list={["hover:underline px-4", { "font-bold underline": currentPath.startsWith("/tags") }]} aria-current={currentPath.startsWith("/tags") ? "page" : undefined}> Tags </a>
-			<a href="/about" class:list={["hover:underline px-4", { "font-bold underline": currentPath.startsWith("/about") }]} aria-current={currentPath.startsWith("/about") ? "page" : undefined}> About </a>
+		<div class="flex divide-x my-4 divide-border">
+			<a href="/archive" class:list={["text-muted-foreground hover:text-foreground hover:underline pr-4", { "font-bold underline text-foreground": currentPath.startsWith("/archive") }]} aria-current={currentPath.startsWith("/archive") ? "page" : undefined}> Archive </a>
+			<a href="/tags" class:list={["text-muted-foreground hover:text-foreground hover:underline px-4", { "font-bold underline text-foreground": currentPath.startsWith("/tags") }]} aria-current={currentPath.startsWith("/tags") ? "page" : undefined}> Tags </a>
+			<a href="/about" class:list={["text-muted-foreground hover:text-foreground hover:underline px-4", { "font-bold underline text-foreground": currentPath.startsWith("/about") }]} aria-current={currentPath.startsWith("/about") ? "page" : undefined}> About </a>
 		</div>
 	</nav>
 </header>

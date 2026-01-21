@@ -18,12 +18,12 @@ const yearArray: string[] = Object.keys(postsGroup).sort(
 
 <Layout title="Archive" description="All posts">
   <section class="mt-8">
-    <h2 class="text-3xl font-bold mb-6">Archive</h2>
+    <h1 class="text-3xl font-bold mb-6">Archive</h1>
     {
       yearArray.map((year) => {
         return (
           <div class="my-4">
-            <h2 class="text-2xl font-semibold">#{year}</h2>
+            <h3 class="text-2xl font-semibold">#{year}</h3>
             <ul>
               {postsGroup[year].map((post, index) => {
                 return (
@@ -33,7 +33,7 @@ const yearArray: string[] = Object.keys(postsGroup).sort(
                       class="flex gap-2 flex-col-reverse items-start md:flex-row md:items-center md:gap-4 py-3"
                     >
                       <FormattedDate date={post.data.date} />
-                      <h2>{post.data.title}</h2>
+                      <span class="hover:underline">{post.data.title}</span>
                     </a>
                   </li>
                 );
