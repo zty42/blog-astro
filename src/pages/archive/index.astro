@@ -1,5 +1,5 @@
 ---
-import FormattedDate from "@/components/FormattedDate.astro";
+import PostListItem from "@/components/PostListItem.astro";
 import Layout from "@/layouts/Layout.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
 
@@ -25,19 +25,9 @@ const yearArray: string[] = Object.keys(postsGroup).sort(
           <div class="my-4">
             <h3 class="text-2xl font-semibold">#{year}</h3>
             <ul>
-              {postsGroup[year].map((post, index) => {
-                return (
-                  <li>
-                    <a
-                      href={`/posts/${post.id}/`}
-                      class="flex gap-2 flex-col-reverse items-start md:flex-row md:items-center md:gap-4 py-3"
-                    >
-                      <FormattedDate date={post.data.date} />
-                      <span class="hover:underline">{post.data.title}</span>
-                    </a>
-                  </li>
-                );
-              })}
+              {postsGroup[year].map((post) => (
+                <PostListItem post={post} titleTag="span" />
+              ))}
             </ul>
           </div>
         );

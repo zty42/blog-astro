@@ -1,0 +1,22 @@
+---
+import type { CollectionEntry } from "astro:content";
+import FormattedDate from "./FormattedDate.astro";
+
+interface Props {
+  post: CollectionEntry<"blog">;
+  titleTag?: "h2" | "span";
+}
+
+const { post, titleTag = "h2" } = Astro.props;
+const TitleTag = titleTag;
+---
+
+<li>
+  <a
+    href={`/posts/${post.id}/`}
+    class="flex gap-2 flex-col-reverse items-start md:flex-row md:items-center md:gap-4 py-3"
+  >
+    <FormattedDate date={post.data.date} />
+    <TitleTag class="hover:underline">{post.data.title}</TitleTag>
+  </a>
+</li>

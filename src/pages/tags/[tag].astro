@@ -1,5 +1,5 @@
 ---
-import FormattedDate from "@/components/FormattedDate.astro";
+import PostListItem from "@/components/PostListItem.astro";
 import Layout from "@/layouts/Layout.astro";
 import { getCollection } from "astro:content";
 
@@ -28,19 +28,9 @@ const posts = (await getCollection("blog"))
   <section class="mt-8">
     <h2 class="text-3xl font-bold mb-6">#{tag}</h2>
     <ul>
-      {
-        posts.map((post) => (
-          <li>
-            <a
-              href={`/posts/${post.id}/`}
-              class="flex gap-2 flex-col-reverse items-start md:flex-row md:items-center md:gap-4 py-3"
-            >
-              <FormattedDate date={post.data.date} />
-              <h2>{post.data.title}</h2>
-            </a>
-          </li>
-        ))
-      }
+      {posts.map((post) => (
+        <PostListItem post={post} />
+      ))}
     </ul>
   </section>
 </Layout>

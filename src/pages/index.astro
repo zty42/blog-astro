@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import FormattedDate from '../components/FormattedDate.astro';
+import PostListItem from '../components/PostListItem.astro';
 
 import { getCollection } from 'astro:content';
 import { getTime } from "date-fns";
@@ -16,12 +16,7 @@ const latestPosts = posts.slice(0, 6);
 		<h2 class="text-3xl font-bold mb-6">Latest Posts</h2>
 		<ul>
 			{latestPosts.map((post) => (
-				<li>
-					<a href={`/posts/${post.id}/`} class="flex gap-2 flex-col-reverse items-start md:flex-row md:items-center md:gap-4 py-3">
-						<FormattedDate date={post.data.date} />
-						<h2>{post.data.title}</h2>
-					</a>
-				</li>
+				<PostListItem post={post} />
 			))}
 		</ul>
 		<div class="mt-6">
