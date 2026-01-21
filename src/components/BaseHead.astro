@@ -49,3 +49,13 @@ const { title = SITE_TITLE, description = SITE_DESCRIPTION, image = '/oggraph.jp
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={new URL(image, Astro.url)} />
+
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": SITE_TITLE,
+  "description": SITE_DESCRIPTION,
+  "url": Astro.site?.toString(),
+  "inLanguage": "zh-CN"
+})} />

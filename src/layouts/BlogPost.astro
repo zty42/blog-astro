@@ -5,14 +5,6 @@ import FormattedDate from "../components/FormattedDate.astro";
 type Props = CollectionEntry<"blog">["data"];
 
 const { title, date } = Astro.props;
-
-function goBack() {
-    if (document.referrer) {
-      window.history.back(); // 如果有上一页，返回上一页
-    } else {
-      window.location.href = '/'; // 如果没有上一页，跳转到首页
-    }
-  }
 ---
 <main class="mt-8">
 	<article>
@@ -29,7 +21,7 @@ function goBack() {
 	</article>
 	<hr>
 	<div class="my-8">
-		<button data-go-back class="hover:underline flex items-center">
+		<button data-go-back class="hover:underline flex items-center" aria-label="Go back" title="Return to previous page">
 			cd ..
 		</button>
 	</div>
@@ -41,10 +33,11 @@ function goBack() {
 	});
 
   function goBack() {
-    if (document.referrer) {
-      window.history.back(); // 如果有上一页，返回上一页
+    // 检查history长度来确定是否有上一页
+    if (window.history.length > 1 && document.referrer && new URL(document.referrer).origin === window.location.origin) {
+      window.history.back(); // 如果有同源的上一页，返回上一页
     } else {
-      window.location.href = '/'; // 如果没有上一页，跳转到首页
+      window.location.href = '/archive'; // 否则跳转到归档页
     }
   }
 </script>

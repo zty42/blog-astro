@@ -1,21 +1,24 @@
 ---
 import { SITE_TITLE } from "../consts";
 import ToggleButton from "./ToggleButton.astro";
+import { Image } from "astro:assets";
+
+const currentPath = new URL(Astro.request.url).pathname;
 ---
 
 <header class="max-w-3xl">
 	<nav>
 		<h1 class="text-3xl font-bold flex justify-between">
 			<a href="/" class="flex items-center">
-				<img src="/sunglasses.png" alt="logo" class="w-8 h-8 mr-4 inline-block" />
+				<Image src="/sunglasses.png" alt="logo" width={32} height={32} class="mr-4 inline-block" loading="eager" />
 				{SITE_TITLE}
 			</a>
 			<ToggleButton />
 		</h1>
 		<div class="flex divide-x my-4 divide-gray-300">
-			<a href="/archive" class="hover:underline pr-4 "> Archive </a>
-			<a href="/tags" class="hover:underline px-4"> Tags </a>
-			<a href="/about" class="hover:underline px-4"> About </a>
+			<a href="/archive" class:list={["hover:underline pr-4", { "font-bold underline": currentPath.startsWith("/archive") }]} aria-current={currentPath.startsWith("/archive") ? "page" : undefined}> Archive </a>
+			<a href="/tags" class:list={["hover:underline px-4", { "font-bold underline": currentPath.startsWith("/tags") }]} aria-current={currentPath.startsWith("/tags") ? "page" : undefined}> Tags </a>
+			<a href="/about" class:list={["hover:underline px-4", { "font-bold underline": currentPath.startsWith("/about") }]} aria-current={currentPath.startsWith("/about") ? "page" : undefined}> About </a>
 		</div>
 	</nav>
 </header>
