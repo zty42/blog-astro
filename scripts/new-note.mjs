@@ -18,6 +18,7 @@ function uniquePath(dir, baseName, ext) {
 function parseArgs(argv) {
   const args = {
     content: "",
+    contentProvided: false,
     mdx: false,
   };
 
@@ -25,7 +26,10 @@ function parseArgs(argv) {
     const a = argv[i];
     if (a === "--mdx") args.mdx = true;
     else if (a === "--md") args.mdx = false;
-    else if (a === "--content" || a === "-c") args.content = argv[++i] ?? "";
+    else if (a === "--content" || a === "-c") {
+      args.contentProvided = true;
+      args.content = argv[++i] ?? "";
+    }
   }
 
   return args;
@@ -58,7 +62,9 @@ async function main() {
     const fullPath = uniquePath(NOTES_DIR, baseName, ext);
 
     const date = new Date().toISOString();
-    const content = args.content ? String(args.content) : await readContentInteractive(rl);
+    const content = args.contentProvided
+      ? String(args.content)
+      : await readContentInteractive(rl);
 
     const file =
       `---\n` +
@@ -77,4 +83,3 @@ main().catch((err) => {
   console.error(err);
   process.exitCode = 1;
 });
-
