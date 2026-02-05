@@ -7,18 +7,27 @@ const currentPath = new URL(Astro.request.url).pathname;
 ---
 
 <header class="max-w-4xl">
-	<nav>
-		<h1 class="text-3xl font-semibold flex justify-between tracking-tight">
-			<a href="/" class="flex items-center">
-				<Image src="/sunglasses.png" alt="logo" width={32} height={32} class="mr-4 inline-block" loading="eager" />
-				{SITE_TITLE}
-			</a>
-			<ToggleButton />
-		</h1>
-		<div class="flex divide-x my-5 divide-border text-sm">
-			<a href="/archive" class:list={["text-muted-foreground hover:text-foreground hover:underline pr-4", { "font-semibold underline text-foreground": currentPath.startsWith("/archive") }]} aria-current={currentPath.startsWith("/archive") ? "page" : undefined}> Archive </a>
-			<a href="/tags" class:list={["text-muted-foreground hover:text-foreground hover:underline px-4", { "font-semibold underline text-foreground": currentPath.startsWith("/tags") }]} aria-current={currentPath.startsWith("/tags") ? "page" : undefined}> Tags </a>
-			<a href="/about" class:list={["text-muted-foreground hover:text-foreground hover:underline px-4", { "font-semibold underline text-foreground": currentPath.startsWith("/about") }]} aria-current={currentPath.startsWith("/about") ? "page" : undefined}> About </a>
+	<nav class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+		<div class="flex items-center justify-between">
+			<h1 class="text-3xl font-semibold tracking-tight">
+				<a href="/" class="flex items-center">
+					<Image src="/sunglasses.png" alt="logo" width={32} height={32} class="mr-4 inline-block" loading="eager" />
+					{SITE_TITLE}
+				</a>
+			</h1>
+			<div class="md:hidden">
+				<ToggleButton />
+			</div>
+		</div>
+		<div class="flex items-center justify-between gap-4">
+			<div class="flex divide-x divide-border text-sm">
+				<a href="/archive" class:list={["text-muted-foreground hover:text-foreground hover:underline pr-4", { "font-semibold underline text-foreground": currentPath.startsWith("/archive") }]} aria-current={currentPath.startsWith("/archive") ? "page" : undefined}> Archive </a>
+				<a href="/tags" class:list={["text-muted-foreground hover:text-foreground hover:underline px-4", { "font-semibold underline text-foreground": currentPath.startsWith("/tags") }]} aria-current={currentPath.startsWith("/tags") ? "page" : undefined}> Tags </a>
+				<a href="/about" class:list={["text-muted-foreground hover:text-foreground hover:underline px-4", { "font-semibold underline text-foreground": currentPath.startsWith("/about") }]} aria-current={currentPath.startsWith("/about") ? "page" : undefined}> About </a>
+			</div>
+			<div class="hidden md:block">
+				<ToggleButton />
+			</div>
 		</div>
 	</nav>
 </header>
