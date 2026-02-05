@@ -31,7 +31,7 @@ const tagList = Object.keys(tags).sort((a, b) => {
       {
         tagList.map((tag) => (
           <li class="mx-4 my-2 inline-block">
-            <a href={`/tags/${tag}`} class=" hover:underline">
+            <a href={`/tags/${tag}`} class="link-hover">
               #{tag} · {tags[tag]}
             </a>
           </li>
