@@ -1,6 +1,6 @@
 ---
 title: "Weekly#3 回家过年"
-date: "2024/02/06"
+date: "2024-02-06"
 tags: [weekly]
 ---
 

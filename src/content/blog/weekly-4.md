@@ -1,6 +1,6 @@
 ---
 title: "Weekly#4 春节回家"
-date: "2024/02/22"
+date: "2024-02-22"
 tags: [weekly]
 ---
 

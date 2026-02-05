@@ -1,14 +1,14 @@
 ---
 interface Props {
-	date: string;
+	date: Date;
 }
 
 const { date } = Astro.props;
-import { format} from 'date-fns';
+import { format } from 'date-fns';
 ---
 
 <time class="text-muted-foreground font-mono text-sm md:text-base">
 	{
-		format(date, 'yyyy/MM/dd')
+		format(date, 'yyyy-MM-dd')
 	}
 </time>

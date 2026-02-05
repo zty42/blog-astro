@@ -24,8 +24,8 @@ const postUrl = new URL(`/posts/${post.id}`, Astro.site);
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     "headline": post.data.title,
-    "datePublished": new Date(post.data.date).toISOString(),
-    "dateModified": new Date(post.data.date).toISOString(),
+    "datePublished": post.data.date.toISOString(),
+    "dateModified": post.data.date.toISOString(),
     "author": {
       "@type": "Person",
       "name": SITE_TITLE

@@ -1,6 +1,6 @@
 ---
 title: "纪录片『铁路沿线』"
-date: "2024/01/23"
+date: "2024-01-23"
 tags: ["Documentary"]
 ---
 

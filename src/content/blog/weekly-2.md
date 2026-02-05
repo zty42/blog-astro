@@ -1,6 +1,6 @@
 ---
 title: "Weekly#2 一台VPS"
-date: "2023/10/20"
+date: "2023-10-20"
 tags: [weekly]
 draft: false
 ---

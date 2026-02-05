@@ -6,10 +6,12 @@ import { getCollection, type CollectionEntry } from "astro:content";
 type PostsGroup = Record<string, CollectionEntry<"blog">[]>;
 
 const posts = await getCollection("blog");
-const postsGroup = Object.groupBy(posts, ({ data }) => {
-  const { date } = data;
-  return date.split("/")[0];
-}) as PostsGroup;
+const postsGroup = posts.reduce<PostsGroup>((group, post) => {
+  const year = String(post.data.date.getFullYear());
+  group[year] ??= [];
+  group[year].push(post);
+  return group;
+}, {});
 
 const yearArray: string[] = Object.keys(postsGroup).sort(
   (a, b) => Number(b) - Number(a)

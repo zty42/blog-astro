@@ -8,7 +8,8 @@ export async function getStaticPaths() {
     .map((post) => post.data.tags)
     .flat()
     .filter(Boolean);
-  return tags.map((tag) => ({
+  const uniqueTags = Array.from(new Set(tags));
+  return uniqueTags.map((tag) => ({
     params: { tag },
   }));
 }
@@ -19,7 +20,7 @@ const { tag } = Astro.params;
 const posts = (await getCollection("blog"))
   .filter((post) => post.data.tags?.includes(tag as string))
   .sort((a, b) => {
-    return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
+    return b.data.date.getTime() - a.data.date.getTime();
   });
 
 ---

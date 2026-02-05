@@ -1,6 +1,6 @@
 ---
 title: "Weekly#5 国庆之行"
-date: "2024/10/10"
+date: "2024-10-10"
 tags: [weekly]
 ---
 

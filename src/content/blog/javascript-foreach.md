@@ -1,6 +1,6 @@
 ---
 title: "forEach异步问题"
-date: "2023/05/26"
+date: "2023-05-26"
 description: ""
 tags: [javascript]
 ---

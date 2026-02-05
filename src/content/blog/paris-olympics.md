@@ -1,6 +1,6 @@
 ---
 title: "巴黎奥运会"
-date: "2024/08/12"
+date: "2024-08-12"
 tags: [sth]
 draft: false
 ---

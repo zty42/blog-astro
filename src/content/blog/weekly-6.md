@@ -1,6 +1,6 @@
 ---
 title: "Weekly#6 不确定还能不能叫周报"
-date: "2025/03/26"
+date: "2025-03-26"
 tags: [weekly]
 ---
 
