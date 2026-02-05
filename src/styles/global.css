@@ -79,6 +79,15 @@
   *:focus-visible {
     @apply outline-2 outline-offset-2 outline-ring;
   }
+  /* Hide scrollbars (keep scrolling). */
+  html {
+    -ms-overflow-style: none; /* IE/Edge legacy */
+    scrollbar-width: none; /* Firefox */
+  }
+  html::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
   /* Shiki emits inline colors; override them for dark mode using --shiki-dark* variables. */
   .dark pre.astro-code {
     background-color: var(--shiki-dark-bg) !important;

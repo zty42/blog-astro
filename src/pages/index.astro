@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import PostListItem from '../components/PostListItem.astro';
+import ArrowIcon from '../components/ArrowIcon.astro';
 
 import { getCollection } from 'astro:content';
 import { getTime } from "date-fns";
@@ -8,7 +9,7 @@ const posts = (await getCollection('blog')).sort(
 	(a, b) => getTime(b.data.date) - getTime(a.data.date),
 );
 
-const latestPosts = posts.slice(0, 6);
+const latestPosts = posts.slice(0, 10);
 ---
 
 <Layout>
@@ -20,7 +21,10 @@ const latestPosts = posts.slice(0, 6);
 			))}
 		</ul>
 		<div class="mt-6">
-			<a href="/archive" class="hover:underline">View all posts 👉</a>
+			<a href="/archive" class="hover:underline inline-flex items-center gap-2">
+        <span>Browse archive</span>
+        <ArrowIcon class="h-4 w-4" />
+      </a>
 		</div>
 	</section>
 </Layout>
