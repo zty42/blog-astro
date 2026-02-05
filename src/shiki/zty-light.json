@@ -1,0 +1,76 @@
+{
+  "name": "zty-light",
+  "type": "light",
+  "colors": {
+    "editor.background": "#f0efea",
+    "editor.foreground": "#26251e",
+    "editorLineNumber.foreground": "#7a7974",
+    "editorIndentGuide.background": "#e2e2df",
+    "editor.selectionBackground": "#e6e5e0",
+    "editor.inactiveSelectionBackground": "#ebeae5",
+    "editorWhitespace.foreground": "#e2e2df"
+  },
+  "tokenColors": [
+    {
+      "scope": ["comment", "punctuation.definition.comment"],
+      "settings": { "foreground": "#7a7974", "fontStyle": "italic" }
+    },
+    {
+      "scope": ["string", "punctuation.definition.string", "string.unquoted"],
+      "settings": { "foreground": "#3b3a33" }
+    },
+    {
+      "scope": ["constant.numeric", "constant.language", "constant.character"],
+      "settings": { "foreground": "#eb5600" }
+    },
+    {
+      "scope": ["keyword", "storage", "storage.type", "keyword.operator"],
+      "settings": { "foreground": "#eb5600" }
+    },
+    {
+      "scope": ["entity.name.function", "support.function", "meta.function-call"],
+      "settings": { "foreground": "#504f49" }
+    },
+    {
+      "scope": ["entity.name.type", "support.type", "entity.name.class"],
+      "settings": { "foreground": "#504f49" }
+    },
+    {
+      "scope": ["variable", "variable.parameter", "variable.other", "support.variable"],
+      "settings": { "foreground": "#26251e" }
+    },
+    {
+      "scope": ["variable.other.property", "support.variable.property", "meta.object-literal.key"],
+      "settings": { "foreground": "#3b3a33" }
+    },
+    {
+      "scope": ["punctuation", "punctuation.separator", "punctuation.terminator"],
+      "settings": { "foreground": "#7a7974" }
+    },
+    {
+      "scope": ["entity.name.tag", "support.class.component", "meta.tag.sgml"],
+      "settings": { "foreground": "#eb5600" }
+    },
+    {
+      "scope": ["entity.other.attribute-name", "meta.attribute", "support.type.property-name"],
+      "settings": { "foreground": "#504f49" }
+    },
+    {
+      "scope": ["markup.bold"],
+      "settings": { "fontStyle": "bold" }
+    },
+    {
+      "scope": ["markup.italic"],
+      "settings": { "fontStyle": "italic" }
+    },
+    {
+      "scope": ["markup.underline", "markup.link"],
+      "settings": { "foreground": "#eb5600", "fontStyle": "underline" }
+    },
+    {
+      "scope": ["invalid", "invalid.illegal"],
+      "settings": { "foreground": "#eb5600", "fontStyle": "underline" }
+    }
+  ]
+}
+

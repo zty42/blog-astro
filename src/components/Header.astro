@@ -11,7 +11,6 @@ const currentPath = new URL(Astro.request.url).pathname;
 		<div class="flex items-center justify-between">
 			<h1 class="text-3xl font-semibold tracking-tight">
 				<a href="/" class="flex items-center">
-					<Image src="/sunglasses.png" alt="logo" width={32} height={32} class="mr-4 inline-block" loading="eager" />
 					{SITE_TITLE}
 				</a>
 			</h1>
@@ -20,7 +19,7 @@ const currentPath = new URL(Astro.request.url).pathname;
 			</div>
 		</div>
 		<div class="flex items-center justify-between gap-4">
-			<div class="flex divide-x divide-border text-sm">
+			<div class="flex divide-x divide-border text-sm [&>*]:transition-colors [&>*]:duration-300">
 				<a href="/archive" class:list={["text-muted-foreground hover:text-foreground hover:underline pr-4", { "font-semibold underline text-foreground": currentPath.startsWith("/archive") }]} aria-current={currentPath.startsWith("/archive") ? "page" : undefined}> Archive </a>
 				<a href="/tags" class:list={["text-muted-foreground hover:text-foreground hover:underline px-4", { "font-semibold underline text-foreground": currentPath.startsWith("/tags") }]} aria-current={currentPath.startsWith("/tags") ? "page" : undefined}> Tags </a>
 				<a href="/about" class:list={["text-muted-foreground hover:text-foreground hover:underline px-4", { "font-semibold underline text-foreground": currentPath.startsWith("/about") }]} aria-current={currentPath.startsWith("/about") ? "page" : undefined}> About </a>

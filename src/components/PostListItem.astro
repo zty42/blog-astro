@@ -14,9 +14,13 @@ const TitleTag = titleTag;
 <li>
   <a
     href={`/posts/${post.id}/`}
-    class="flex gap-2 flex-col items-start md:flex-row md:items-center md:gap-4 py-3"
+    class="flex flex-col items-start gap-1 py-3 md:flex-row md:items-baseline md:gap-4"
   >
-    <TitleTag class="hover:underline text-lg md:text-xl leading-snug">{post.data.title}</TitleTag>
-    <FormattedDate date={post.data.date} />
+    <TitleTag class="hover:underline leading-snug min-w-0 md:order-2">
+      {post.data.title}
+    </TitleTag>
+    <span class="shrink-0 md:order-1">
+      <FormattedDate date={post.data.date} />
+    </span>
   </a>
 </li>

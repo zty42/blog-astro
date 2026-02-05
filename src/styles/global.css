@@ -6,45 +6,47 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --background: #f7f7f4;
+  --foreground: #26251e;
+  --card: #f0efea;
+  --card-foreground: #26251e;
+  --popover: #f0efea;
+  --popover-foreground: #26251e;
+  --primary: #eb5600;
+  --primary-foreground: #fff;
+  --secondary: #ebeae5;
+  --secondary-foreground: #26251e;
+  --muted: #ebeae5;
+  --muted-foreground: #7a7974;
+  --accent: #ebeae5;
+  --accent-foreground: #26251e;
+  --destructive: #eb5600;
+  --destructive-foreground: #14120b;
+  --border: #e2e2df;
+  --input: #e2e2df;
+  --ring: #504f49;
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
+  --background: #14120b;
+  --foreground: #edecec;
+  --card: #1b1913;
+  --card-foreground: #edecec;
+  --popover: #1b1913;
+  --popover-foreground: #edecec;
+  --primary: #eb5600;
+  --primary-foreground: #14120b;
+  --secondary: #201e18;
+  --secondary-foreground: #edecec;
+  --muted: #201e18;
+  --muted-foreground: #969592;
+  --accent: #201e18;
+  --accent-foreground: #edecec;
+  --destructive: #eb5600;
+  --destructive-foreground: #14120b;
+  --border: #2a2822;
+  --input: #2a2822;
+  --ring: #c2c0bf;
 }
 
 @theme inline {
@@ -67,17 +69,23 @@
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
   *:focus-visible {
     @apply outline-2 outline-offset-2 outline-ring;
+  }
+  /* Shiki emits inline colors; override them for dark mode using --shiki-dark* variables. */
+  .dark pre.astro-code {
+    background-color: var(--shiki-dark-bg) !important;
+    color: var(--shiki-dark) !important;
+  }
+  .dark pre.astro-code span {
+    color: var(--shiki-dark) !important;
   }
   body {
     @apply bg-background text-foreground;
