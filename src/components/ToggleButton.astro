@@ -2,7 +2,13 @@
 import { Sun, Moon } from 'lucide-react';
 ---
 
-<button id="themeToggle" aria-label="Toggle theme" title="Toggle dark/light mode">
+<button
+  id="themeToggle"
+  class="inline-flex items-center justify-center rounded-md p-2 text-foreground transition"
+  aria-label="切换主题"
+  title="切换主题"
+  aria-pressed="false"
+>
   <Sun className="hidden dark:block" />
   <Moon className="block dark:hidden" />
 </button>
@@ -33,7 +39,17 @@ import { Sun, Moon } from 'lucide-react';
 
     const isDark = element.classList.contains("dark");
     localStorage.setItem("theme", isDark ? "dark" : "light");
+    const toggleButton = document.getElementById("themeToggle");
+    if (toggleButton) {
+      toggleButton.setAttribute("aria-pressed", String(isDark));
+      toggleButton.setAttribute("title", isDark ? "切换到浅色" : "切换到深色");
+    }
   }
 
-  document.getElementById("themeToggle")?.addEventListener("click", handleToggleClick);
+  const toggleButton = document.getElementById("themeToggle");
+  if (toggleButton) {
+    toggleButton.addEventListener("click", handleToggleClick);
+    toggleButton.setAttribute("aria-pressed", String(theme === "dark"));
+    toggleButton.setAttribute("title", theme === "dark" ? "切换到浅色" : "切换到深色");
+  }
 </script>
