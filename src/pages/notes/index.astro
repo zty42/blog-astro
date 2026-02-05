@@ -1,0 +1,38 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import FormattedDate from "@/components/FormattedDate.astro";
+import { getCollection } from "astro:content";
+
+let notes = [];
+try {
+  notes = await getCollection("notes");
+} catch (err) {
+  // Astro can throw when a collection has no matched entries.
+  notes = [];
+}
+
+notes = notes.filter((n) => !n.data.draft);
+notes.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<Layout title="Notes" description="Quick notes">
+  <section class="mt-10">
+    <h1 class="font-semibold mb-6">Notes</h1>
+
+    {
+      notes.length === 0 ? (
+        <p class="text-muted-foreground">No notes yet.</p>
+      ) : (
+        <div class="flex flex-col gap-6">
+          {notes.map((note) => (
+            <article class="border border-border rounded-md p-4 bg-card">
+              <div class="whitespace-pre-wrap break-words text-sm leading-relaxed text-left">
+                <FormattedDate date={note.data.date} /> {note.body ?? ""} 
+              </div>
+            </article>
+          ))}
+        </div>
+      )
+    }
+  </section>
+</Layout>
