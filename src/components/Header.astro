@@ -12,7 +12,7 @@ const currentPath = new URL(Astro.request.url).pathname;
 			<h1 class="text-3xl font-semibold tracking-tight">
 				<a href="/" class="flex items-center">
 					<Logo class="mr-4 inline-block h-8 w-8 text-foreground" />
-					{SITE_TITLE}
+					<span class="font-brand">{SITE_TITLE}</span>
 				</a>
 			</h1>
 			<div class="md:hidden">

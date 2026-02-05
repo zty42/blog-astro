@@ -4,6 +4,14 @@
 @custom-variant dark (&:is(.dark *));
 @plugin "@tailwindcss/typography";
 
+@font-face {
+  font-family: "Gravitas One";
+  src: url("/GravitasOne-Regular.ttf") format("truetype");
+  font-display: swap;
+  font-style: normal;
+  font-weight: 400;
+}
+
 :root {
   --radius: 0.625rem;
   --background: #f7f7f4;
@@ -113,5 +121,21 @@
   .link-hover:hover,
   .link-hover:focus-visible {
     text-decoration-line: underline;
+  }
+}
+
+@layer components {
+  .font-brand {
+    font-family: "Gravitas One", ui-sans-serif, system-ui, sans-serif;
+  }
+  .prose :is(h1, h2, h3, h4, h5, h6) {
+    position: relative;
+  }
+  .prose :is(h1, h2, h3, h4, h5, h6)::before {
+    content: "#";
+    margin-right: 0.5rem;
+    color: var(--color-primary, #eb5600);
+    font-weight: 600;
+    opacity: 0.9;
   }
 }
