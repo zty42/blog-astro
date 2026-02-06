@@ -12,8 +12,17 @@ const posts = (await getCollection('blog')).sort(
 const latestPosts = posts.slice(0, 10);
 ---
 
-<Layout>
-	<section class="mt-10">
+<Layout
+	title="zty.im | zty 的个人博客"
+	description="zty 的个人博客，记录技术、生活与思考，包含文章、笔记与归档。"
+>
+	<section class="mt-10 space-y-3">
+		<h2 class="text-lg font-semibold">Welcome</h2>
+		<p class="text-sm text-muted-foreground">
+			这里是 zty 的个人博客，主要分享技术实践、生活记录和阶段性思考。
+		</p>
+	</section>
+	<section class="mt-10" data-nosnippet>
 		<h2 class="font-semibold mb-6">Latest Posts</h2>
 		<ul>
 			{latestPosts.map((post) => (
