@@ -1,27 +1,18 @@
 ---
 import PostListItem from "@/components/PostListItem.astro";
 import Layout from "@/layouts/Layout.astro";
-import { getCollection } from "astro:content";
+import { getPostsByTag, getSortedBlogTags } from "@/lib/utils";
 
 export async function getStaticPaths() {
-  const tags = (await getCollection("blog"))
-    .map((post) => post.data.tags)
-    .flat()
-    .filter(Boolean);
-  const uniqueTags = Array.from(new Set(tags));
-  return uniqueTags.map((tag) => ({
+  const tags = await getSortedBlogTags();
+
+  return tags.map(({ tag }) => ({
     params: { tag },
   }));
 }
 
-
 const { tag } = Astro.params;
-
-const posts = (await getCollection("blog"))
-  .filter((post) => post.data.tags?.includes(tag as string))
-  .sort((a, b) => {
-    return b.data.date.getTime() - a.data.date.getTime();
-  });
+const posts = await getPostsByTag(tag as string);
 
 ---
 

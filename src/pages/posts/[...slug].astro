@@ -5,6 +5,7 @@ import Layout from "../../layouts/Layout.astro";
 import { render } from "astro:content";
 import Prose from "../../components/Prose.astro";
 import { SITE_TITLE } from "../../consts";
+
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
   return posts.map((post) => ({
@@ -12,14 +13,18 @@ export async function getStaticPaths() {
     props: post,
   }));
 }
-type Props = CollectionEntry<"blog">;
 
-const post = Astro.props;
+const post = Astro.props as CollectionEntry<"blog">;
 const { Content } = await render(post);
-const postUrl = new URL(`/posts/${post.id}`, Astro.site);
+const postUrl = new URL(`/posts/${post.id}/`, Astro.site ?? Astro.url);
+const description = post.body
+  ?.replace(/\s+/g, " ")
+  .replaceAll("#", "")
+  .trim()
+  .slice(0, 150);
 ---
 
-<Layout title={post.data.title} description={post.body?.slice(0, 150).replaceAll("#", "")}>
+<Layout title={post.data.title} description={description}>
   <script type="application/ld+json" is:inline set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -35,7 +40,7 @@ const postUrl = new URL(`/posts/${post.id}`, Astro.site);
       "name": SITE_TITLE,
       "logo": {
         "@type": "ImageObject",
-        "url": new URL("/sunglasses.png", Astro.site).toString()
+        "url": new URL("/favicon.ico", Astro.site ?? Astro.url).toString()
       }
     },
     "url": postUrl.toString(),

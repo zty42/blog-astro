@@ -10,9 +10,10 @@ interface Props {
 	image?: string;
 }
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-
+const siteURL = Astro.site ?? Astro.url;
+const canonicalURL = new URL(Astro.url.pathname, siteURL);
 const { title = SITE_TITLE, description = SITE_DESCRIPTION, image = '/oggraph.jpg' } = Astro.props;
+const socialImageURL = new URL(image, siteURL);
 ---
 
 <!-- Global Metadata -->
@@ -28,6 +29,71 @@ const { title = SITE_TITLE, description = SITE_DESCRIPTION, image = '/oggraph.jp
 />
 <meta name="generator" content={Astro.generator} />
 
+<script is:inline>
+  (() => {
+    const storageKey = "theme";
+    const root = document.documentElement;
+
+    const syncButtons = () => {
+      const isDark = root.classList.contains("dark");
+
+      document.querySelectorAll("[data-theme-toggle]").forEach((button) => {
+        if (!(button instanceof HTMLButtonElement)) {
+          return;
+        }
+
+        button.setAttribute("aria-pressed", String(isDark));
+        button.setAttribute("aria-label", isDark ? "切换到浅色" : "切换到深色");
+        button.setAttribute("title", isDark ? "切换到浅色" : "切换到深色");
+      });
+    };
+
+    const applyTheme = (theme) => {
+      root.classList.toggle("dark", theme === "dark");
+
+      try {
+        localStorage.setItem(storageKey, theme);
+      } catch {}
+
+      syncButtons();
+    };
+
+    const getPreferredTheme = () => {
+      try {
+        const savedTheme = localStorage.getItem(storageKey);
+        if (savedTheme === "dark" || savedTheme === "light") {
+          return savedTheme;
+        }
+      } catch {}
+
+      return window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light";
+    };
+
+    applyTheme(getPreferredTheme());
+
+    document.addEventListener("click", (event) => {
+      if (!(event.target instanceof Element)) {
+        return;
+      }
+
+      const button = event.target.closest("[data-theme-toggle]");
+      if (!(button instanceof HTMLButtonElement)) {
+        return;
+      }
+
+      applyTheme(root.classList.contains("dark") ? "light" : "dark");
+    });
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", syncButtons, { once: true });
+    } else {
+      syncButtons();
+    }
+  })();
+</script>
+
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
 
@@ -38,24 +104,24 @@ const { title = SITE_TITLE, description = SITE_DESCRIPTION, image = '/oggraph.jp
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
-<meta property="og:url" content={Astro.url} />
+<meta property="og:url" content={canonicalURL} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
-<meta property="og:image" content={new URL(image, Astro.url)} />
+<meta property="og:image" content={socialImageURL} />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content={Astro.url} />
+<meta property="twitter:url" content={canonicalURL} />
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
-<meta property="twitter:image" content={new URL(image, Astro.url)} />
+<meta property="twitter:image" content={socialImageURL} />
 
 <!-- JSON-LD Structured Data -->
-<script type="application/ld+json" set:html={JSON.stringify({
+<script type="application/ld+json" is:inline set:html={JSON.stringify({
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": SITE_TITLE,
   "description": SITE_DESCRIPTION,
-  "url": Astro.site?.toString(),
+  "url": siteURL.toString(),
   "inLanguage": "zh-CN"
 })} />

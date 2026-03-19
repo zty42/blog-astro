@@ -1,11 +1,11 @@
 ---
 import PostListItem from "@/components/PostListItem.astro";
 import Layout from "@/layouts/Layout.astro";
-import { getCollection, type CollectionEntry } from "astro:content";
+import { getSortedBlogPosts, type BlogPost } from "@/lib/utils";
 
-type PostsGroup = Record<string, CollectionEntry<"blog">[]>;
+type PostsGroup = Record<string, BlogPost[]>;
 
-const posts = await getCollection("blog");
+const posts = await getSortedBlogPosts();
 const postsGroup = posts.reduce<PostsGroup>((group, post) => {
   const year = String(post.data.date.getFullYear());
   group[year] ??= [];

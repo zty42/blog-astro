@@ -1,27 +1,8 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import { getSortedBlogTags } from "@/lib/utils";
 
-import { getCollection } from "astro:content";
-
-const tags = (await getCollection("blog"))
-  .map((post) => post.data.tags)
-  .flat()
-  .filter((tag): tag is string => Boolean(tag))
-  .reduce<Record<string, number>>((res, name) => {
-    res[name] = res[name] ? ++res[name] : 1;
-    return res;
-  }, {});
-
-const tagList = Object.keys(tags).sort((a, b) => {
-  const aCount = tags[a];
-  const bCount = tags[b];
-
-  if (aCount === bCount) {
-    return a.localeCompare(b);
-  }
-
-  return bCount - aCount;
-});
+const tags = await getSortedBlogTags();
 ---
 
 <Layout title="Tags" description="All tags">
@@ -29,10 +10,10 @@ const tagList = Object.keys(tags).sort((a, b) => {
     <h2 class="font-semibold mb-6">Tags</h2>
     <ul>
       {
-        tagList.map((tag) => (
+        tags.map(({ tag, count }) => (
           <li class="mx-4 my-2 inline-block">
-            <a href={`/tags/${tag}`} class="link-hover">
-              #{tag} · {tags[tag]}
+            <a href={`/tags/${encodeURIComponent(tag)}`} class="link-hover">
+              #{tag} · {count}
             </a>
           </li>
         ))

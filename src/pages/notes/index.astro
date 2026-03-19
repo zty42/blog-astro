@@ -1,12 +1,12 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import FormattedDate from "@/components/FormattedDate.astro";
-import { getCollection } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
 
-let notes = [];
+let notes: CollectionEntry<"notes">[] = [];
 try {
   notes = await getCollection("notes");
-} catch (err) {
+} catch {
   // Astro can throw when a collection has no matched entries.
   notes = [];
 }
@@ -26,7 +26,7 @@ notes.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
         <div class="flex flex-col gap-6">
           {notes.map((note) => (
             <article class="border border-border rounded-md p-4 bg-card">
-              <div class="whitespace-pre-wrap break-words text-sm leading-relaxed text-left">
+              <div class="break-words text-sm leading-relaxed text-left">
                 <FormattedDate date={note.data.date} /> {note.body ?? ""} 
               </div>
             </article>

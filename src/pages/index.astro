@@ -2,14 +2,9 @@
 import Layout from '../layouts/Layout.astro';
 import PostListItem from '../components/PostListItem.astro';
 import ArrowIcon from '../components/ArrowIcon.astro';
+import { getLatestBlogPosts } from '../lib/utils';
 
-import { getCollection } from 'astro:content';
-import { getTime } from "date-fns";
-const posts = (await getCollection('blog')).sort(
-	(a, b) => getTime(b.data.date) - getTime(a.data.date),
-);
-
-const latestPosts = posts.slice(0, 10);
+const latestPosts = await getLatestBlogPosts();
 ---
 
 <Layout

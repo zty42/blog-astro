@@ -6,8 +6,6 @@ import sitemap from '@astrojs/sitemap';
 
 import tailwindcss from '@tailwindcss/vite';
 
-import react from '@astrojs/react';
-
 // https://astro.build/config
 const ztyLightTheme = JSON.parse(
   readFileSync(new URL('./src/shiki/zty-light.json', import.meta.url), 'utf-8'),
@@ -18,7 +16,7 @@ const ztyDarkTheme = JSON.parse(
 
 export default defineConfig({
   site: 'https://zty.im',
-  integrations: [mdx(), sitemap(), react()],
+  integrations: [mdx(), sitemap()],
   markdown: {
     shikiConfig: {
       themes: {
