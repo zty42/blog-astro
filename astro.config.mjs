@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 import { readFileSync } from 'node:fs';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
+import remarkImgattr from 'remark-imgattr';
 
 import tailwindcss from '@tailwindcss/vite';
 
@@ -18,6 +19,7 @@ export default defineConfig({
   site: 'https://zty.im',
   integrations: [mdx(), sitemap()],
   markdown: {
+    remarkPlugins: [remarkImgattr],
     shikiConfig: {
       themes: {
         light: ztyLightTheme,
